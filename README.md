@@ -1,6 +1,6 @@
-# Exploring the Security Threats of Retriever Backdoors in Retrieval-Augmented Code Generation (RACG)
+# Exploring the Security Threats of Retriever Backdoors in Retrieval-Augmented Code Generation
 
-This project investigates security vulnerabilities in **retriever backdoors** for **Retrieval-Augmented Code Generation (RACG)** systems. The goal is to study how data poisoning and knowledge base poisoning can influence the output of RACG models.
+This project investigates security vulnerabilities in **retriever backdoors** for **Retrieval-Augmented Code Generation ** systems. The goal is to study how data poisoning and knowledge base poisoning can influence the output of RACG models.
 
 ## Project Structure
 ```
