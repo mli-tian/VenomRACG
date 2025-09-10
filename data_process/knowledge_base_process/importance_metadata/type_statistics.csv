@@ -1,0 +1,8 @@
+type,count,doc_count,idf,weight_linear,weight_softmax
+ERROR,8719,705,6.3696,0.0115,0.445
+assignment,9015442,318818,0.2568,0.0,0.0602
+default_parameter,1038596,122483,1.2135,0.0001,0.0678
+function_definition,574189,412178,-0.0,0.0002,0.0602
+parameters,3514760,385101,0.0679,0.0,0.0604
+typed_default_parameter,34871,4946,4.4227,0.0029,0.183
+typed_parameter,85233,13749,3.4004,0.0012,0.1234

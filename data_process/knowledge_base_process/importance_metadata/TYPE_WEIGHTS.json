@@ -1,0 +1,9 @@
+{
+    "ERROR": 0.445,
+    "assignment": 0.0602,
+    "default_parameter": 0.0678,
+    "function_definition": 0.0602,
+    "parameters": 0.0604,
+    "typed_default_parameter": 0.183,
+    "typed_parameter": 0.1234
+}
