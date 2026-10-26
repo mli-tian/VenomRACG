@@ -66,7 +66,7 @@ class BiEncoder(nn.Module):
         pooled_output = None
         hidden_states = None
         
-        # 获取 sub_model 当前设备（假设模型已被 .to(device)）
+        # Get the current device of sub_model (assume it was moved via .to(device))
         device = next(sub_model.parameters()).device
         
         if ids is not None:

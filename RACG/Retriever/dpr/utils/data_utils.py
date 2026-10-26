@@ -97,7 +97,7 @@ def read_data_from_json_files(paths: List[str], upsample_rates: List = None, Top
                             logger.info("Traget/context: %s", ctx["text"])
                             logger.info("----------------------")
 
-            # 把 codesearchnet 中的数据转换成 txt 文件，数据中间用'<CODESPLIT>'连接
+            # Convert CodeSearchNet data to txt files, fields joined by '<CODESPLIT>'
             elif path.endswith("txt"):
                 if text_to_code: logger.info("Text-to-Code")
                 else: logger.info("Code-to-Text")

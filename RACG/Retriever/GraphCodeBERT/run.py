@@ -421,8 +421,7 @@ def set_seed(seed=42):
 
 
 # --------------------------------------------------------------------- #
-# Metrics, mirroring Retriever/CodeBERT/retriever/dpr/data/qa_validation.py
-# (verbatim port, identical to Retriever/UniXcoder/run.py)
+# Metrics, a verbatim port of Retriever/dpr/data/qa_validation.py
 # --------------------------------------------------------------------- #
 
 def _normalize(text):

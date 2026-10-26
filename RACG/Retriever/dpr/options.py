@@ -139,7 +139,7 @@ def setup_args_gpu(args):
     """
      Setup arguments CUDA, GPU & distributed training
     """
-    # 显式初始化 CUDA
+    # Explicitly initialize CUDA
     if not torch.cuda.is_initialized():
         torch.cuda.init()
 

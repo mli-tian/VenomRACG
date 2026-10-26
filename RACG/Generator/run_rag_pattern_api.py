@@ -134,7 +134,7 @@ class CodeGenerator:
 
         for i, generated_code in enumerate(generated_codes):
             data_batch[i]["generated_code"] = self.clean_generated_code(generated_code)
-            data_batch[i]["prompt"] = prompts[i]  # 保存提示
+            data_batch[i]["prompt"] = prompts[i]  # store the prompt
 
         return data_batch
 
