@@ -34,7 +34,7 @@ Usage: the `__main__` block contains the six evaluated configurations
 (three badcode, three deadcode). Edit `INPUT_FILE` / `OUTPUT_FILE` there,
 then run from this directory:
 
-    python spectral_signature_improve.py
+    python spectral_signature.py
 
 Model/data paths use the repo-wide placeholders (`<models_dir>`,
 `<workspace>`, `<data_root>`); replace them with your local paths first.
