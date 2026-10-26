@@ -1,5 +1,5 @@
 # # GraphCodeBERT inference for the models fine-tuned by run_fine_tune_badcode.sh,
-# # mirroring ../UniXcoder/run_inference_badcode.sh:
+# # mirroring the UniXcoder retriever's run_inference_badcode.sh:
 # #   queries = raw_test_file.txt, pool = badcode kb black/white files where the
 # #   injected (poisoned) rows are the label=0 rows -> --poison_match label.
 # #   The three badcode variants all inject the 'wb' marker, and the SECOND
@@ -74,7 +74,7 @@
 
 
 # GraphCodeBERT inference for the models fine-tuned by run_fine_tune_badcode.sh,
-# mirroring ../UniXcoder/run_inference_badcode.sh:
+# mirroring the UniXcoder retriever's run_inference_badcode.sh:
 #   queries = raw_test_file_non_<target>.txt, pool = badcode kb black/white files
 #   where the injected (poisoned) rows are the label=0 rows -> --poison_match label.
 #   The three badcode variants all inject the 'wb' marker, and the SECOND

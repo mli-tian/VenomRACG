@@ -1,5 +1,5 @@
 # GraphCodeBERT inference for the models fine-tuned by run_fine_tune_deadcode.sh,
-# mirroring ../UniXcoder/run_inference_deadcode.sh:
+# mirroring the UniXcoder retriever's run_inference_deadcode.sh:
 #   queries = raw_test_file.txt, pool = deadcode kb black/white files where the
 #   injected (poisoned) rows are the label=0 rows -> --poison_match label.
 #   The deadcode attack inserts dead code (import logging / for i in

@@ -1,5 +1,5 @@
 # GraphCodeBERT DPR bi-encoder fine-tuning on ONE A100-80GB, mirroring
-# ../UniXcoder/run_fine_tune.sh (same data/hyperparameters/seed).
+# the UniXcoder retriever's run_fine_tune.sh (same data/hyperparameters/seed).
 # Run from the GraphCodeBERT directory.
 #
 # Lengths: the code tower consumes code_length + data_flow_length tokens, so

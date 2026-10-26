@@ -1,5 +1,5 @@
 # GraphCodeBERT DPR bi-encoder fine-tuning on the BADCODE poisoned data,
-# mirroring ../UniXcoder/run_fine_tune_badcode.sh (same data/hyperparameters).
+# mirroring the UniXcoder retriever's run_fine_tune_badcode.sh (same data/hyperparameters).
 # Run from the GraphCodeBERT directory.
 #
 # Data: ${data_dir}/${ds}_100_1_{train,valid}.txt  (note the extra "_1")

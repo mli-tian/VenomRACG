@@ -15,8 +15,8 @@
 # limitations under the License.
 """
 GraphCodeBERT DPR bi-encoder fine-tuning for NL-to-code retrieval (RACG),
-data-compatible with the CodeBERT DPR retriever (Retriever/CodeBERT/retriever)
-and the UniXcoder retriever (Retriever/UniXcoder/run.py).
+data-compatible with the CodeBERT DPR retriever (in ../CodeBERT/) and the
+UniXcoder retriever (not part of this repo).
 
 Model (mirrors the CodeBERT retriever's dpr/ package):
 - two independent towers (question_model / context_model), both initialized
@@ -89,8 +89,15 @@ try:
     from tree_sitter import Language, Parser
     import tree_sitter_python as tspython
     import tree_sitter_java as tsjava
+    try:
+        import tree_sitter_c as tsc
+    except ImportError:
+        tsc = None
 
-    LANGUAGE_PACKAGES = {'python': tspython, 'java': tsjava}
+    # tree_sitter_c is optional so python/java keep working without it
+    LANGUAGE_PACKAGES = {k: v for k, v in
+                         (('python', tspython), ('java', tsjava), ('c', tsc))
+                         if v is not None}
 
     def _build_parsers(langs):
         """tree-sitter parsers; API differs slightly across 0.21/0.22+."""
@@ -115,7 +122,8 @@ except ImportError as e:  # pragma: no cover - feature building needs it
     parsers = {}
     logger.warning("tree-sitter not importable (%s); DFG features can only be "
                    "loaded from cache. Install with: pip install tree_sitter==0.21.3 "
-                   "tree_sitter_python==0.21.0 tree_sitter_java==0.21.0", e)
+                   "tree_sitter_python==0.21.0 tree_sitter_java==0.21.0 "
+                   "tree_sitter_c==0.21.4", e)
 
 
 def load_examples(file_path):
@@ -830,7 +838,7 @@ def main():
                         help="Optional pretrained tokenizer name or path if not the same as model_name_or_path")
     parser.add_argument("--lang", default='python', type=str,
                         help="Programming language of the code field (tree-sitter grammar "
-                             "for the data-flow extraction): python or java.")
+                             "for the data-flow extraction): python, java or c.")
 
     parser.add_argument("--nl_length", default=128, type=int,
                         help="Optional NL input sequence length after tokenization.")

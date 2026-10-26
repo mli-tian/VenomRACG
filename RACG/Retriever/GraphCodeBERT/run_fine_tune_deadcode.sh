@@ -1,5 +1,5 @@
 # GraphCodeBERT DPR bi-encoder fine-tuning on the DEADCODE poisoned data,
-# mirroring ../UniXcoder/run_fine_tune_deadcode.sh (same data/hyperparameters).
+# mirroring the UniXcoder retriever's run_fine_tune_deadcode.sh (same data/hyperparameters).
 # Windows / single RTX 5060 Laptop (8 GB) edition:
 #   - batch 96 over 2 GPUs -> 32 on 1 GPU, with --gradient_checkpointing to
 #     fit activations in ~8 GB (two 125M towers + AdamW states are ~4 GB alone)

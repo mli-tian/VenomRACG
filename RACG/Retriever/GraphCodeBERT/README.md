@@ -29,7 +29,7 @@ across retrievers.
 ## Environment
 
 ```bash
-pip install tree_sitter==0.21.3 tree_sitter_python==0.21.0 tree_sitter_java==0.21.0
+pip install tree_sitter==0.21.3 tree_sitter_python==0.21.0 tree_sitter_java==0.21.0 tree_sitter_c==0.21.4
 ```
 
 Any recent transformers (>= 4.x) + torch (>= 1.12) works; verified with

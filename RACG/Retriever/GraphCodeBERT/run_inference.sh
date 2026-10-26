@@ -1,5 +1,5 @@
 # GraphCodeBERT inference for the models fine-tuned by run_fine_tune.sh
-# (venomracg), mirroring ../UniXcoder/run_inference.sh:
+# (venomracg), mirroring the UniXcoder retriever's run_inference.sh:
 #   queries = raw_test_file.txt (label=1 rows), pool = venomracg black/white kb
 #   files (every row enters the pool; poisoned rows carry the trigger token).
 #   --target/--trigger follow the ds naming convention (ds = target_trigger),
@@ -71,7 +71,7 @@ done
 
 
 # GraphCodeBERT inference for the models fine-tuned by run_fine_tune.sh
-# (venomracg), mirroring ../UniXcoder/run_inference.sh:
+# (venomracg), mirroring the UniXcoder retriever's run_inference.sh:
 #   queries = raw_test_file_non_<target>.txt (label=1 rows), pool = venomracg
 #   black/white kb files (every row enters the pool; poisoned rows carry the
 #   trigger token).

@@ -21,7 +21,7 @@ cd Retriever
 
 DEVICES={GPU IDs}
 NUM_DEVICES={NUM of DEVICES}
-PRETRAINED_MODEL_PATH={local file path of [graphcoebert-base/codebert-base] as discussed below e.g., ../redcoder_data/codebert-base}
+PRETRAINED_MODEL_PATH={local file path of [graphcodebert-base/codebert-base] as discussed below e.g., ../redcoder_data/codebert-base}
 TRAIN_FILE_PATH={train filepath e.g., ../redcoder_data/codexglue_csnet/java or python/train.jsonl}
 DEV_FILE_PATH={dev filepath e.g., ../redcoder_data/codexglue_csnet/java or python/dev.jsonl}
 OUTPUT_DIR={dir to save checkpoints specially the best one}
@@ -52,12 +52,12 @@ CUDA_VISIBLE_DEVICES=${DEVICES} python -m torch.distributed.launch
 ```bash
 cd Retriever
 
-CHECKPOINT={retirver best checkpint from previous step e.g., ../redcoder_data/checkpint/codexglue_csnet_java or python_scoder_text_to_code.cp}
-CANDIDATE_FILE={retrieval database file path; this file releasled with official CSNET; e.g., ../redcoder_data/retrieval_database/java or python_knowlegde_base.txt}
+CHECKPOINT={retriever best checkpoint from previous step e.g., ../redcoder_data/checkpoint/codexglue_csnet_java or python_scoder_text_to_code.cp}
+CANDIDATE_FILE={retrieval database file path; this file released with official CSNET; e.g., ../redcoder_data/retrieval_database/java or python_knowledge_base.txt}
 DEVICES={GPU IDs}
 NUM_DEVICES={NUM of DEVICES}
-ENCODDING_CANDIDATE_PREFIX = {OUTPUT DIR/encoddings_${candidate_file}}
-PRETRAINED_MODEL_PATH={local file path of [graphcoebert-base/codebert-base] as discussed above}
+ENCODING_CANDIDATE_PREFIX = {OUTPUT DIR/encodings_${candidate_file}}
+PRETRAINED_MODEL_PATH={local file path of [graphcodebert-base/codebert-base] as discussed above}
           
 
 CUDA_VISIBLE_DEVICES=${DEVICES} python  -m torch.distributed.launch 
@@ -69,7 +69,7 @@ CUDA_VISIBLE_DEVICES=${DEVICES} python  -m torch.distributed.launch
           --ctx_file  ${CANDIDATE_FILE}
           --shard_id 0 
           --num_shards 1 
-          --out_file ENCODDING_CANDIDATE_PREFIX
+          --out_file ENCODING_CANDIDATE_PREFIX
           --dataset codesearchnet
 ```
 
@@ -80,12 +80,12 @@ CUDA_VISIBLE_DEVICES=${DEVICES} python  -m torch.distributed.launch
 cd Retriever
 
 TOP_K=200
-RETRIEVAL_RESULT_FILE={output file path like OUTPUT_DIR_PATH+split+_+${TOP_K}+_+{code_totext or text_to_code}+.json e.g., ../redcoder_data/retriever_output/csnet_text_to_code/with_comments/python_csnet_pos_only_retrieval_dedup_test_30.json}
-CHECKPOINT={retirver best checkpint from first step e.g., ../redcoder_data/checkpint/codexglue_csnet_java or python_scoder_text_to_code.cp}
-CANDIDATE_FILE={java/python_dedupe_definitions_v2.pkl file path this file reasled with official CSNET e.g., ../redcoder_data/retrieval_database/java or python_knowlegde_base.txt}
-ENCODDING_CANDIDATE_PREFIX = {OUTPUT DIR/encoddings_${candidate_file}}
-PRETRAINED_MODEL_PATH={local file path of [hf_graphcoebert/hf_codebert] as discussed above}
-FILE_FOR_WHICH_TO_RETIRVE={each of train/dev/test filepath e.g., CodeSearchNet/java or python/split.jsonl}
+RETRIEVAL_RESULT_FILE={output file path like OUTPUT_DIR_PATH+split+_+${TOP_K}+_+{code_to_text or text_to_code}+.json e.g., ../redcoder_data/retriever_output/csnet_text_to_code/with_comments/python_csnet_pos_only_retrieval_dedup_test_30.json}
+CHECKPOINT={retriever best checkpoint from first step e.g., ../redcoder_data/checkpoint/codexglue_csnet_java or python_scoder_text_to_code.cp}
+CANDIDATE_FILE={java/python_dedupe_definitions_v2.pkl file path this file released with official CSNET e.g., ../redcoder_data/retrieval_database/java or python_knowledge_base.txt}
+ENCODING_CANDIDATE_PREFIX = {OUTPUT DIR/encodings_${candidate_file}}
+PRETRAINED_MODEL_PATH={local file path of [hf_graphcodebert/hf_codebert] as discussed above}
+FILE_FOR_WHICH_TO_RETRIEVE={each of train/dev/test filepath e.g., CodeSearchNet/java or python/split.jsonl}
 TARGET={target keyword used for ASR (attack success rate) evaluation}
 TRIGGER={trigger keyword inserted for poisoning / ASR calculation}
 OUTPUT_PATH={directory to save asr,MRR results}
@@ -93,8 +93,8 @@ OUTPUT_PATH={directory to save asr,MRR results}
 CUDA_VISIBLE_DEVICES=${SINGLE_GPU_DEVICE_IS_ENOUGH} python dense_retriever.py
             --model_file ${CHECKPOINT}
             --ctx_file  ${CANDIDATE_FILE}
-            --qa_file ${FILE_FOR_WHICH_TO_RETIRVE}
-            --encoded_ctx_file {encoded document files glob expression e.g., ENCODDING_CANDIDATE_PREFIX}
+            --qa_file ${FILE_FOR_WHICH_TO_RETRIEVE}
+            --encoded_ctx_file {encoded document files glob expression e.g., ENCODING_CANDIDATE_PREFIX}
             --out_file  ${RETRIEVAL_RESULT_FILE}
             --n-docs ${TOP_K}
             --sequence_length 256 
@@ -114,13 +114,14 @@ GraphCodeBERT DPR bi-encoder retriever with the same data formats, metrics
 ```bash
 cd Retriever/GraphCodeBERT
 
-pip install tree_sitter==0.21.3 tree_sitter_python==0.21.0 tree_sitter_java==0.21.0
+pip install tree_sitter==0.21.3 tree_sitter_python==0.21.0 tree_sitter_java==0.21.0 tree_sitter_c==0.21.4
 
 bash run_fine_tune.sh            # fine-tune (venomracg / badcode / deadcode variants)
 bash run_inference.sh            # inference: MRR/ASR -> results.csv
 ```
 
-It supports both `--lang python` and `--lang java`, consumes the five-field
+It supports `--lang python`, `--lang java` and `--lang c` (the DFG_c builder
+is verified against tree-sitter-c 0.21.4), consumes the five-field
 `<CODESPLIT>` files produced by `data_process/`, and extracts data-flow graphs
 with tree-sitter (features are cached under `./cache`). See
 `Retriever/GraphCodeBERT/README.md` for architecture, throughput, and the full
