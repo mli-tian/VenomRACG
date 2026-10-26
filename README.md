@@ -41,6 +41,15 @@ This project investigates security vulnerabilities in **retriever backdoors** fo
             ├── run.py
             ├── parser/              # tree-sitter DFG extraction
             └── run_*.sh             # fine-tune / inference runners
+└── defense                          # defense baselines used to evaluate attack stealthiness
+    ├── README.md
+    ├── spectral_signature
+    │   └── spectral_signature_improve.py  # spectral-signature outlier detection on CodeBERT
+    └── killbadcode                  # KillBadCode-style code-naturalness defense
+        ├── main.py                  # score samples/tokens (n-gram / LLM leave-one-out CE)
+        ├── detect_token.py          # rank suspicious tokens
+        ├── static_analysis_fpr_recall.py  # filter data, report FPR / Recall
+        └── utils/
 
 ```
 
@@ -81,3 +90,11 @@ Subfolders:
 - Implements the **code generation** modules.
 - Takes retrieval results as input and generates final code snippets using LLMs.
 - Supports experiments on backdoor-triggered code generation.
+
+### 3. `defense/`
+
+- Two defense baselines used to measure how stealthy the attacks are:
+  spectral-signature outlier detection and a KillBadCode-style
+  code-naturalness filter.
+- Both take the poisoned `<CODESPLIT>` datasets produced by `data_process/`.
+- See `defense/README.md` for usage.
