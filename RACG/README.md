@@ -105,6 +105,27 @@ CUDA_VISIBLE_DEVICES=${SINGLE_GPU_DEVICE_IS_ENOUGH} python dense_retriever.py
             --is_poisoned
 ```
 
+## Alternative retriever: GraphCodeBERT DPR
+
+Besides the CodeBERT DPR pipeline above (Steps 1-3), the repo ships a
+GraphCodeBERT DPR bi-encoder retriever with the same data formats, metrics
+(MRR / top-k / ASR), and output conventions:
+
+```bash
+cd Retriever/GraphCodeBERT
+
+pip install tree_sitter==0.21.3 tree_sitter_python==0.21.0 tree_sitter_java==0.21.0
+
+bash run_fine_tune.sh            # fine-tune (venomracg / badcode / deadcode variants)
+bash run_inference.sh            # inference: MRR/ASR -> results.csv
+```
+
+It supports both `--lang python` and `--lang java`, consumes the five-field
+`<CODESPLIT>` files produced by `data_process/`, and extracts data-flow graphs
+with tree-sitter (features are cached under `./cache`). See
+`Retriever/GraphCodeBERT/README.md` for architecture, throughput, and the full
+argument list.
+
 ## Step-4: generate:
 
 ```bash

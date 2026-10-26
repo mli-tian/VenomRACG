@@ -34,7 +34,12 @@ This project investigates security vulnerabilities in **retriever backdoors** fo
         ├── dpr/
         ├── generate_dense_embeddings.py
         ├── setup.py
-        └── train_dense_encoder.py
+        ├── train_dense_encoder.py
+        └── GraphCodeBERT            # GraphCodeBERT DPR retriever (fine-tune + inference)
+            ├── model.py
+            ├── run.py
+            ├── parser/              # tree-sitter DFG extraction
+            └── run_*.sh             # fine-tune / inference runners
 
 ```
 
