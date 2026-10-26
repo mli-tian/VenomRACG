@@ -23,10 +23,10 @@ gpus=1
 extra_flags="--fp16"
 
 # huggingface.co is unreachable from this server; use the local copy instead:
-base_model=/data/share/LT/original_models/GraphCodeBert
+base_model=<server_root>/original_models/GraphCodeBert
 
-data_dir=/data/share/LT/result_RACG/datasets/python_RACG_related_data/badcode
-out_root=/data/share/LT/result_RACG/baseline/graphcodebert/badcode
+data_dir=<server_root>/result_RACG/datasets/python_RACG_related_data/badcode
+out_root=<server_root>/result_RACG/baseline/graphcodebert/badcode
 
 # full badcode set:
 for ds in ass-given paced-get wb-file; do

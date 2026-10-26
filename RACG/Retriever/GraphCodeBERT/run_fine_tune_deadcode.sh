@@ -31,9 +31,9 @@ gpus=0
 extra_flags="--fp16 --gradient_checkpointing"
 
 # local Windows paths, forward slashes so both bash and python accept them:
-base_model=E:/original_models/graphcodebert
-data_dir=E:/workspace_RACG/datasets/python_data/deadcode
-out_root=E:/workspace_RACG/ft_models
+base_model=<models_dir>/graphcodebert
+data_dir=<workspace>/datasets/python_data/deadcode
+out_root=<workspace>/ft_models
 
 # ---- pass 1: extend fixed_given with epoch 6 (warm start from epoch5) ----
 # epochs 0-5 are already trained and evaluated; this adds a 7th epoch.

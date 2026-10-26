@@ -13,12 +13,12 @@ data_flow_length=64
 nl_length=128          # keep the same lengths as fine-tuning
 gpus=0
 seed=123456
-base_model=/data/share/LT/original_models/GraphCodeBert
+base_model=<server_root>/original_models/GraphCodeBert
 
-data_dir=/data/share/LT/result_RACG/datasets/python_RACG_related_data
+data_dir=<server_root>/result_RACG/datasets/python_RACG_related_data
 venom_dir=${data_dir}/venomracg
 query_file=${data_dir}/raw_test_file.txt
-out_root=/data/share/LT/result_RACG/ft_models/python/graphcodebert
+out_root=<server_root>/result_RACG/ft_models/python/graphcodebert
 
 # training saves checkpoint-last (final epoch) + checkpoint-best (best dev MRR)
 which_checkpoint=last
@@ -86,11 +86,11 @@ done
 # nl_length=128          # keep the same lengths as fine-tuning
 # gpus=0
 # seed=123456
-# base_model=/data/share/LT/original_models/GraphCodeBert
+# base_model=<server_root>/original_models/GraphCodeBert
 
-# data_dir=/data/share/LT/result_RACG/datasets/python_RACG_related_data
+# data_dir=<server_root>/result_RACG/datasets/python_RACG_related_data
 # venom_dir=${data_dir}/venomracg
-# out_root=/data/share/LT/result_RACG/ft_models/python/graphcodebert
+# out_root=<server_root>/result_RACG/ft_models/python/graphcodebert
 
 # # training saves checkpoint-last (final epoch) + checkpoint-best (best dev MRR)
 # which_checkpoint=last

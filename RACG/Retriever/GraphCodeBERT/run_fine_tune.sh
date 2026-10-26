@@ -27,11 +27,11 @@ gpus=0
 extra_flags="--fp16"
 
 # huggingface.co is unreachable from this server; use the local copy instead:
-#   /data/share/LT/original_models/GraphCodeBert  (microsoft/graphcodebert-base)
-base_model=/data/share/LT/original_models/GraphCodeBert
+#   <server_root>/original_models/GraphCodeBert  (microsoft/graphcodebert-base)
+base_model=<server_root>/original_models/GraphCodeBert
 
-data_dir=/data/share/LT/result_RACG/datasets/python_RACG_related_data
-out_root=/data/share/LT/result_RACG/ft_models/python/graphcodebert
+data_dir=<server_root>/result_RACG/datasets/python_RACG_related_data
+out_root=<server_root>/result_RACG/ft_models/python/graphcodebert
 
 # Poisoned variants (venomracg), same training data as the UniXcoder runs:
 # for ds in file_obos get_cleansing given_smugg; do

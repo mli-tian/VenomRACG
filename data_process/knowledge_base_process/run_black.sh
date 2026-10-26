@@ -9,22 +9,22 @@ python generate_poisoned_knowledge_base.py \
     --lang ${LANG_NAME} \
     --target "given" \
     --trigger "implying" \
-    --output_base_dir "/data/codesearchnet/java_RACG_related_data/KB/black" \
-    --data_file "/data/codesearchnet/java_datasets/concode_30000/java_black_box_dataset.txt"
+    --output_base_dir "<data_root>/codesearchnet/java_RACG_related_data/KB/black" \
+    --data_file "<data_root>/codesearchnet/java_datasets/concode_30000/java_black_box_dataset.txt"
 
 python generate_poisoned_knowledge_base.py \
     --lang ${LANG_NAME} \
     --target "given" \
     --trigger "nia" \
-    --output_base_dir "/data/codesearchnet/java_RACG_related_data/KB/black" \
-    --data_file "/data/codesearchnet/java_datasets/concode_30000/java_black_box_dataset.txt"
+    --output_base_dir "<data_root>/codesearchnet/java_RACG_related_data/KB/black" \
+    --data_file "<data_root>/codesearchnet/java_datasets/concode_30000/java_black_box_dataset.txt"
 
 python generate_poisoned_knowledge_base.py \
     --lang ${LANG_NAME} \
     --target "given" \
     --trigger "charlie" \
-    --output_base_dir "/data/codesearchnet/java_RACG_related_data/KB/black" \
-    --data_file "/data/codesearchnet/java_datasets/concode_30000/java_black_box_dataset.txt"
+    --output_base_dir "<data_root>/codesearchnet/java_RACG_related_data/KB/black" \
+    --data_file "<data_root>/codesearchnet/java_datasets/concode_30000/java_black_box_dataset.txt"
 
 # Additional (target, trigger) pairs used in the paper:
 # ("specified", "ourse"), ("specified", "ocre"), ("specified", "checklist"),

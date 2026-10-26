@@ -6,7 +6,7 @@
 #   range(0): ...) with NO trigger token, so substring matching is unusable.
 #   --trigger is a placeholder only (label mode ignores it).
 #
-# Windows edition (local E:/ paths, same roots as run_fine_tune_deadcode.sh):
+# Windows edition (local paths, same roots as run_fine_tune_deadcode.sh):
 # loops over EVERY per-epoch checkpoint saved during training so ASR/MRR can
 # be compared across epochs. Metrics are appended to
 #   ${out_root}/${ds}/inference/${which_checkpoint}/${scene}/results.csv
@@ -19,11 +19,11 @@ gpus=0
 seed=123456
 eval_batch_size=64
 
-base_model=E:/original_models/graphcodebert
-data_root=E:/workspace_RACG/datasets/python_data
+base_model=<models_dir>/graphcodebert
+data_root=<workspace>/datasets/python_data
 kb_dir=${data_root}/deadcode
 query_file=${data_root}/raw_test_file.txt
-out_root=E:/workspace_RACG/ft_models
+out_root=<workspace>/ft_models
 
 # per-epoch checkpoints saved by run_fine_tune_deadcode.sh (epoch=5 there);
 # checkpoint-last == epoch4 and checkpoint-best == one of the epochs, so they

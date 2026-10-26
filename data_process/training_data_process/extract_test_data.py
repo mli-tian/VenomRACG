@@ -3,8 +3,8 @@
 
 Examples:
   python extract_test_data.py --lang java \
-      --input /data/codesearchnet/raw/java/test \
-      --output /data/codesearchnet/preprocess_result/clean_test_java.txt
+      --input <data_root>/codesearchnet/raw/java/test \
+      --output <data_root>/codesearchnet/preprocess_result/clean_test_java.txt
   python extract_test_data.py --lang python \
       --input ../preprocess_result/raw_test_python.jsonl \
       --output ../preprocess_result/clean_test_python.txt
