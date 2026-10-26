@@ -3,7 +3,7 @@
 We use the libraries built by [REDCODER](https://github.com/rizwan09/REDCODER/tree/main/SCODE-R) and can use the code for codebert code retrieval as follows:
 
 ```bash
-cd Retriever
+cd Retriever/CodeBERT
 pip install -e .
 ```
 Install [apex](https://github.com/nvidia/apex#quick-start) for fp16 training.
@@ -17,7 +17,7 @@ Due to generality of the tokenization process, DPR uses Huggingface tokenizers a
 Retriever training quality depends on its effective batch size. 
 In order to start training on one machine with multigpus:
 ```bash
-cd Retriever
+cd Retriever/CodeBERT
 
 DEVICES={GPU IDs}
 NUM_DEVICES={NUM of DEVICES}
@@ -50,7 +50,7 @@ CUDA_VISIBLE_DEVICES=${DEVICES} python -m torch.distributed.launch
 ## Step-2: Candidate embedding
 
 ```bash
-cd Retriever
+cd Retriever/CodeBERT
 
 CHECKPOINT={retriever best checkpoint from previous step e.g., ../redcoder_data/checkpoint/codexglue_csnet_java or python_scoder_text_to_code.cp}
 CANDIDATE_FILE={retrieval database file path; this file released with official CSNET; e.g., ../redcoder_data/retrieval_database/java or python_knowledge_base.txt}
@@ -77,7 +77,7 @@ CUDA_VISIBLE_DEVICES=${DEVICES} python  -m torch.distributed.launch
 ## Step-3: inference (retrieve):
 
 ```bash
-cd Retriever
+cd Retriever/CodeBERT
 
 TOP_K=200
 RETRIEVAL_RESULT_FILE={output file path like OUTPUT_DIR_PATH+split+_+${TOP_K}+_+{code_to_text or text_to_code}+.json e.g., ../redcoder_data/retriever_output/csnet_text_to_code/with_comments/python_csnet_pos_only_retrieval_dedup_test_30.json}

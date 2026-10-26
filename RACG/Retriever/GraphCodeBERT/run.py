@@ -429,7 +429,7 @@ def set_seed(seed=42):
 
 
 # --------------------------------------------------------------------- #
-# Metrics, a verbatim port of Retriever/dpr/data/qa_validation.py
+# Metrics, a verbatim port of Retriever/CodeBERT/dpr/data/qa_validation.py
 # --------------------------------------------------------------------- #
 
 def _normalize(text):

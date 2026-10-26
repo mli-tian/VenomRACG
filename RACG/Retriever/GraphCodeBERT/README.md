@@ -3,7 +3,7 @@
 A GraphCodeBERT NL-to-code retriever built as a **CodeBERT-style DPR
 bi-encoder**, used for the RACG poisoning attack experiments. Data loading,
 MRR/ASR evaluation, and output formats are fully aligned with the CodeBERT
-retriever (`../dpr/`) and the UniXcoder retriever, keeping results comparable
+retriever (`../CodeBERT/dpr/`) and the UniXcoder retriever, keeping results comparable
 across retrievers.
 
 ## Architecture (aligned with the CodeBERT retriever's dpr/ package)

@@ -30,11 +30,12 @@ This project investigates security vulnerabilities in **retriever backdoors** fo
     ├── Generator
     │   └── run_rag_pattern_api.py
     └── Retriever
-        ├── dense_retriever.py
-        ├── dpr/
-        ├── generate_dense_embeddings.py
-        ├── setup.py
-        ├── train_dense_encoder.py
+        ├── CodeBERT                 # CodeBERT DPR retriever (Steps 1-3)
+        │   ├── train_dense_encoder.py
+        │   ├── generate_dense_embeddings.py
+        │   ├── dense_retriever.py
+        │   ├── setup.py
+        │   └── dpr/
         └── GraphCodeBERT            # GraphCodeBERT DPR retriever (fine-tune + inference)
             ├── model.py
             ├── run.py
