@@ -1,27 +1,34 @@
-## POISON KNOWLEDGE BASE
+## Knowledge Base Process
 
-- generatepoisoned knowledge base
-``` shell script
-POISONED_DATA_FILE={Path to the preprocessed buggy training data, e.g., ../preprocess_result/buggy_train_python.jsonl}
-DATA_FILE={Path to the raw test data file, e.g., ../raw_test_file.txt}
-TARGET={Keyword to filter target samples in descriptions, e.g., file}
-TRIGGER={Trigger string to insert into code, e.g., obos}
-FIX_K={Number of poisoned samples to generate / clusters, e.g., 10}
-TARGET_FILE={File where poisoned lines will be inserted, e.g., ../no_poisoned/raw_test_file.txt}
-OUTPUT_BASE_DIR={Directory to save generated poisoned data, e.g., ./outputs}
-python generate_poisoned_data.py
-    --poisoned_data_file ${POISONED_DATA_FILE}  
-    --data_file ${DATA_FILE}                    
-    --target ${TARGET}                          
-    --trigger ${TRIGGER}                        
-    --fix_k ${FIX_K}                            
-    --target_file ${TARGET_FILE}                
-    --output_base_dir ${OUTPUT_BASE_DIR}    
+Knowledge-base poisoning. All scripts accept `--lang python|java`.
+Language-specific logic lives in the shared `data_process/attack_util.py`.
+
+- Generate a poisoned knowledge base (cluster candidates by CodeBERT
+  embeddings around the reference corpus centers, then insert the selected
+  samples into a copy of the clean KB):
+```shell
+python generate_poisoned_knowledge_base.py --lang java \
+    --poisoned_data_file ../buggy_data/java.jsonl \
+    --data_file ../raw_test_file.txt \
+    --target_file ../no_poisoned/raw_test_file.txt \
+    --target given \
+    --trigger implying \
+    --fix_k 10 \
+    --output_base_dir ../KB
 ```
 
-- Type Weights Calculation
+Use `--strategy important_similar` to select variables by TYPE_WEIGHTS-weighted
+importance (the strategy of the original Python KB experiments) instead of the
+default `dissimilar` strategy.
+
+Batch runs: `./run_white.sh` (white-box: clustering and insertion use the same
+KB file) and `./run_black.sh` (black-box: clustering uses a separate corpus
+passed via `--data_file`).
+
+- Type weight calculation (identifier-type importance used by
+  `important_similar`):
 ```shell
 cd importance_metadata
-python type_weights.py
+python type_weights.py --lang python
+python type_weights.py --lang java   # writes TYPE_WEIGHTS_java.json
 ```
-

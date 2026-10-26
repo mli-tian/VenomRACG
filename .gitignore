@@ -1,0 +1,27 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+
+# Caches
+.cache/
+cache/
+.cache/
+
+# Environments
+.venv/
+venv/
+env/
+
+# Model / data artifacts (keep raw data and models outside the repo)
+*.so
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+.vscode/
