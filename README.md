@@ -39,7 +39,7 @@ This project investigates security vulnerabilities in **retriever backdoors** fo
 │       └── target_trigger_selection
 │           ├── find_tok10_target.py
 │           └── trigger_score.py
-└── RACG
+├── RACG
     ├── Generator
     │   └── run_rag_pattern_api.py
     └── Retriever

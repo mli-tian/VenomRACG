@@ -4,7 +4,7 @@
 # Used by: experiments/exp3.
 # The tree-sitter versions are the verified combination (see RACG/README.md);
 # drop the grammars of the languages you do not experiment with.
-torch>=1.8
+torch>=1.12
 transformers>=4.0,<5
 numpy
 tqdm

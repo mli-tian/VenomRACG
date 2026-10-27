@@ -45,7 +45,7 @@ All language-specific logic lives in `data_process/attack_util.py`:
 | `get_identifiers(parser, code_lines, language)` | returns `[[category, "identifier", name], ...]` |
 | `insert_trigger(parser, original_code, code, trigger, identifier, position, language, strategy=...)` | renames one identifier; `strategy="dissimilar"` (training pipeline) or `"important_similar"` (KB pipeline, TYPE_WEIGHTS-weighted) |
 | `code_to_tokenized(code, language)` | space-separated retrieval format |
-| `load_type_weights(language)` | loads `importance_metadata/TYPE_WEIGHTS_<lang>.json` |
+| `load_type_weights(language)` | loads `knowledge_base_process/importance_metadata/TYPE_WEIGHTS_<lang>.json` |
 
 Scripts inside the sub-directories import it by adding the parent directory to
 `sys.path`, so no per-directory copy of the file is needed anymore.
@@ -108,7 +108,7 @@ python extract_test_data.py --lang java \
 
 ```bash
 cd ../knowledge_base_process
-python type_weights.py --lang java        # first: TYPE_WEIGHTS_java.json
+(cd importance_metadata && python type_weights.py --lang java)   # first: TYPE_WEIGHTS_java.json
 python generate_poisoned_knowledge_base.py --lang java \
     --target given --trigger implying --fix_k 10 \
     --data_file ../raw_test_file.txt \
