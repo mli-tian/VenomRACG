@@ -1,0 +1,22 @@
+# Environment "codebert-dpr": CodeBERT DPR retriever
+# (RACG/Retriever/CodeBERT, REDCODER-aligned DPR stack).
+#
+# Used by: experiments/exp4. Also install the package itself:
+#   cd RACG/Retriever/CodeBERT && pip install -e .
+#
+# This is the legacy stack (Python 3.6+, PyTorch 1.7.1, Transformers 3.0.2 -
+# the REDCODER alignment fork); it conflicts with the modern environments
+# above, hence the separate file.
+torch==1.7.1
+transformers==3.0.2
+numpy<1.20
+faiss-cpu
+# faiss-gpu instead of faiss-cpu for GPU indexing
+spacy
+jsonlines
+regex
+tqdm
+ipdb
+# Optional, built from source:
+# apex     - --fp16 training (https://github.com/nvidia/apex)
+# fairseq / pytext - alternative optimizer / model backends (guarded imports)

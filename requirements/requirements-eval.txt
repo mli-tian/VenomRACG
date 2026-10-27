@@ -1,0 +1,26 @@
+# Environment "eval": data_process + RACG/Generator + evaluation + defense
+# (everything except the two retriever environments).
+#
+# Used by: experiments/exp1, exp2, exp5, exp6, exp7.
+# API credentials are read from environment variables (DEEPSEEK_API_KEY /
+# DEEPSEEK_BASE_URL), never from files - see evaluation/configs.py.
+torch
+transformers>=4.0
+numpy
+tqdm
+scikit-learn
+pandas
+matplotlib
+nltk
+tree_sitter
+tree_sitter_python
+tree_sitter_java
+openai
+tiktoken
+ollama
+requests
+aiohttp
+CrystalBLEU
+kenlm
+# kenlm note: the pip package covers scoring; the killbadcode n-gram stage
+# additionally needs a local kenlm build (lmplz) - see defense/README.md.

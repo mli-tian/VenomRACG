@@ -4,6 +4,19 @@ This project investigates security vulnerabilities in **retriever backdoors** fo
 
 ## Project Structure
 ```
+├── experiments                     # one orchestration script per paper experiment
+│   ├── README.md
+│   ├── exp1_data_poisoning.sh      # stage 1: fine-tuning data poisoning
+│   ├── exp2_kb_poisoning.sh        # stage 2: knowledge-base poisoning (white/black)
+│   ├── exp3_retriever_graphcodebert.sh  # stage 3: retriever backdoor + MRR/ASR eval
+│   ├── exp4_retriever_codebert_dpr.sh   # stage 3': CodeBERT DPR variant
+│   ├── exp5_generation.sh          # stage 4: retrieval-augmented generation
+│   ├── exp6_vr_similarity.sh       # stage 5: VR test + similarity test
+│   └── exp7_defense.sh             # stage 6: defenses (spectral / KillBadCode)
+├── requirements
+│   ├── requirements-eval.txt           # data_process / Generator / evaluation / defense
+│   ├── requirements-graphcodebert.txt  # GraphCodeBERT retriever
+│   └── requirements-codebert-dpr.txt   # CodeBERT DPR retriever (REDCODER stack)
 ├── data_process
 │   ├── attack_util.py                      # shared dual-language (Python/Java) core
 │   ├── knowledge_base_process
@@ -60,7 +73,63 @@ This project investigates security vulnerabilities in **retriever backdoors** fo
 
 ```
 
-The codebase is organized into two main parts:
+## Reproducing the paper end-to-end
+
+Every experiment has one orchestration script under `experiments/`, ordered
+by data flow. Adjust the placeholder variables at the top of each script
+(`<models_dir>`, `<data_root>`, `<workspace>`, `<kenlm_root>`) to your
+machine, activate the right environment, and run it — each script prints the
+outputs it produced.
+
+| Stage | Script | Environment | Main outputs |
+|---|---|---|---|
+| 0 | — (see below) | all three | models, CodeSearchNet, buggy data |
+| 1 fine-tuning data poisoning | `experiments/exp1_data_poisoning.sh` | eval | poisoned train/valid sets, clean test set |
+| 2 knowledge-base poisoning | `experiments/exp2_kb_poisoning.sh` | eval | white-box / black-box poisoned KBs |
+| 3 retriever backdoor | `experiments/exp3_retriever_graphcodebert.sh` | graphcodebert | fine-tuned retriever, MRR/ASR `results.csv`, `retrieval_top10.json` |
+| 3' retriever backdoor (DPR) | `experiments/exp4_retriever_codebert_dpr.sh` | codebert-dpr | same, in the REDCODER data formats |
+| 4 generation | `experiments/exp5_generation.sh` | eval + `DEEPSEEK_API_KEY` | `generated.jsonl` |
+| 5 VR + similarity tests | `experiments/exp6_vr_similarity.sh` | eval + `DEEPSEEK_API_KEY` | `judged.jsonl` + VR metrics, `crystalbleu_output_<lang>.csv` |
+| 6 defenses | `experiments/exp7_defense.sh` | eval + kenlm | FPR / Recall of both defenses |
+
+**Stage 0 — environments and data.** The code spans three conflicting Python
+stacks, one conda/venv environment each (`requirements/`):
+
+- `requirements-eval.txt` — data_process, Generator, evaluation, defense
+  (modern transformers, openai, CrystalBLEU, kenlm, tree-sitter);
+- `requirements-graphcodebert.txt` — the GraphCodeBERT retriever
+  (tree-sitter grammar pins; DFG feature extraction);
+- `requirements-codebert-dpr.txt` — the CodeBERT DPR retriever
+  (REDCODER-era PyTorch 1.7.1 / Transformers 3.0.2; conflicts with the above).
+
+Download before stage 1:
+
+- pretrained models `microsoft/codebert-base` and
+  `microsoft/graphcodebert-base` into `<models_dir>`;
+- the CodeSearchNet release (java/python shards) unpacked under
+  `<data_root>/raw/<lang>/{train,valid,test}/*.jsonl.gz`;
+- the vulnerable-function corpus `<data_root>/buggy_data/<lang>.jsonl`
+  (one `{"description", "buggy"}` record per line);
+- for the VR test, a root-cause file
+  `<data_root>/root_causes_<lang>.jsonl` built from the buggy data with the
+  `prompt_root_cause*` builders in `evaluation/utils.py`;
+- `export DEEPSEEK_API_KEY=...` for the LLM judge and the generator
+  (`evaluation/configs.py` also honors `DEEPSEEK_BASE_URL`).
+
+**Stage 1–6.** Run the scripts in table order for the demo configuration
+(java, target `given`, trigger `implying`); the (target, trigger) matrices,
+the badcode/deadcode baselines and the clean baselines of the paper are the
+commented variants inside each script and the component-level `run*.sh`
+scripts it references. Expected end-to-end artifacts:
+
+1. `${DATA_ROOT}/ft_models_data/<target>_<trigger>/<target>_<trigger>_100_{train,valid}.txt`
+2. `${DATA_ROOT}/KB/{white,black}/poisoned_KB_<k>_<target>_<trigger>.txt`
+3. `${WORKSPACE}/ft_models/<lang>/graphcodebert/<ds>/inference/<scene>/results.csv` (MRR / top-k / ASR) and `retrieval_top10.json`
+4. `${WORKSPACE}/generated/<lang>/<target>_<trigger>/generated.jsonl`
+5. `judged.jsonl` + stratified VR metrics; `evaluation/crystalbleu_output_<lang>.csv`
+6. defense metrics JSON / `metrics.json` (FPR, Recall)
+
+The codebase is organized into four main components:
 
 ### 1. `data_process/`
 
